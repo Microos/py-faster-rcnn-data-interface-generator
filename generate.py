@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 #encoding: utf8
 import os,sys
 import argparse
@@ -39,7 +40,7 @@ def parse_args():
                         default=default_mark, type=str)
 
     parser.add_argument('--cls', dest='CLASSESNAME',
-                        help='A =List of classes, separate by a comma(e.g. cat,dog,tiger)',
+                        help='A List of classes, separate by a comma(e.g. cat,dog,tiger)',
                         default=default_mark, type=str)
 
 
@@ -219,7 +220,6 @@ if __name__ == '__main__':
     print
     arg, parser_ = parse_args()
     if(len(sys.argv)!=9 or arg.FASTER_RCNN_ROOT == default_mark or arg.NAMEYOURDATASET == default_mark or arg.DEVKITPATH == default_mark or arg.CLASSESNAME == default_mark):
-        print len(sys.argv) -1
         parser_.print_help()
         sys.exit(1)
 	
