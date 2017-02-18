@@ -8,7 +8,7 @@ This tool will generate dataset interface like `pascal_voc.py`, `voc_eval.py` an
 Also a set of net prototxt files like `py-faster-rcnn/models/pascal_voc`. 
 And a bash script similar to `py-faster-rcnn/experiments/scripts/faster_rcnn_end2end.sh`
 
-Before using this generator, please make sure you have already set up a voc-like tree structure of your dataset:
+Before using this generator, please make sure you have already set up a voc-like tree structure of your dataset(in your `py-faster-rcnn/data/` folder):
 
 	PASCAL_VOC_devkit
 		└── data
