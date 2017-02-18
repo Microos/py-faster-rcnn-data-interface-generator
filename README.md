@@ -42,7 +42,7 @@ Then you can run the `generate.py` to generate interface, prototxt and script fi
 
  You have 2 options to complete the last step manually:
  
- 1. Backup the original `factory.py` file and replace it with the generated one.
+ 1. Backup the original `factory.py` file and replace it with the generating one.
  2. Copy the code block given by the tool in the task summary.
   
  
