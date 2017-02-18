@@ -64,20 +64,27 @@ def parse_classes():
         if not len(cls) > 0:
             print "[!] Your input classes doesn't match the format:",arg.CLASSESNAME
             print '[!] Example: a,b,c,d,e'
-            assert len(cls) > 0
-    clses = [c.stripe() for c in clses]
+            sys.exit(1)
+    clses = [c.strip() for c in clses]
     return  "'"  +   "','".join(clses) + "'", len(clses) #gives you 'a','b','c','d','e' AND number of classes
 
 def check_exists(FASTER_RCNN_ROOT, DEVKITPATH):
-    #check if these dirs exist
-    assert os.path.isdir(FASTER_RCNN_ROOT) and os.path.isabs(FASTER_RCNN_ROOT)
+    if not  (os.path.isdir(FASTER_RCNN_ROOT) and os.path.isabs(FASTER_RCNN_ROOT)):
+        print "[!] Your Faster_RCNN_ROOT: '{}' not found. No such a directory. \n\tPlease make sure it is a absolute path.".format(FASTER_RCNN_ROOT)
+        sys.exit(1)
 
-    #check if they are absolute path
-    assert os.path.isdir(DEVKITPATH) and os.path.isabs(DEVKITPATH)
 
-    assert os.path.isdir(os.path.join(FASTER_RCNN_ROOT,'experiments','scripts'))
-    assert os.path.isdir(os.path.join(FASTER_RCNN_ROOT,'lib','datasets'))
-    assert os.path.isdir(os.path.join(FASTER_RCNN_ROOT, 'models'))
+    if not (os.path.isdir(DEVKITPATH) and os.path.isabs(DEVKITPATH)):
+        print "[!] Your dataset Devkit: '{}' not found. No such a directory. \n\tPlease make sure it is a absolute path.".format(DEVKITPATH)
+        sys.exit(1)
+
+
+    for tf in [os.path.join(FASTER_RCNN_ROOT,'experiments','scripts'),os.path.join(FASTER_RCNN_ROOT,'lib','datasets'),os.path.join(FASTER_RCNN_ROOT, 'models')]:
+        if os.path.isdir(tf) == False:
+            print "[!] Directory :'{}' not found.".format(tf)
+            sys.exit(1)
+
+
 
 def gen_py_files(NAMEYOURDATASET, TOKEN_1, CLASSESNAME,TOKEN_2, DEVKITPATH, TOKEN_3):
     x_str = templates.x_template
