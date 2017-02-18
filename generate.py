@@ -19,9 +19,7 @@ PASCAL_VOC_devkit
         └── *.jpg
 
 '''
-
-
-
+default_mark = 'O(..)O'
 
 def parse_args():
     """
@@ -34,40 +32,40 @@ def parse_args():
 
     parser.add_argument('--froot', dest='FASTER_RCNN_ROOT',
                         help='The full path to your Faster RCNN ROOT folder',
-                        default='/home/rick/Desktop/py-face-faster-rcnn', type=str)
+                        default=default_mark, type=str)
 
     parser.add_argument('--idname', dest='NAMEYOURDATASET',
                         help='Specify a name to your dataset, also use it as an id',
-                        default='abcd', type=str)
+                        default=default_mark, type=str)
 
     parser.add_argument('--cls', dest='CLASSESNAME',
-                        help='A =List of classes, separate by a vertical bar(e.g. cat|dog|tiger)',
-                        default='face|head', type=str)
+                        help='A =List of classes, separate by a comma(e.g. cat,dog,tiger)',
+                        default=default_mark, type=str)
 
 
     parser.add_argument('--dvkt', dest='DEVKITPATH',
                         help='The full path to your dataset devkit folder',
-                        default='/home/rick/Space/clone/py-faster-rcnn/data/FDDB_devkit', type=str)
+                        default=default_mark, type=str)
 
-
-    # if not DEBUG and len(sys.argv) != 4:
-    #     parser.print_help()
-    #     print len(sys.argv)
-    #     sys.exit(1)
+    
+    # if not DEBUG and len(sys.argv) < 4:
+    #      parser.print_help()
+    #
+    #      sys.exit(1)
 
     args = parser.parse_args()
-    return args
+    return args, parser
 
 def parse_classes():
-    clses = (arg.CLASSESNAME).split('|')
+    clses = (arg.CLASSESNAME).split(',')
 
-    #check to prevent: 'a|b|c|'
+    #check to prevent: 'a,b,c,'
     for cls in clses:
         if not len(cls) > 0:
             print "[!] Your input classes doesn't match the format:",arg.CLASSESNAME
-            print '[!] Example: a|b|c|d|e'
+            print '[!] Example: a,b,c,d,e'
             assert len(cls) > 0
-
+    clses = [c.stripe() for c in clses]
     return  "'"  +   "','".join(clses) + "'", len(clses) #gives you 'a','b','c','d','e' AND number of classes
 
 def check_exists(FASTER_RCNN_ROOT, DEVKITPATH):
@@ -211,12 +209,18 @@ def write_files(FASTER_RCNN_ROOT,NAMEYOURDATASET, new_ptxt_dir, x_str, eval_str,
     summary += '------------------------------------------\n'
     print summary
 if __name__ == '__main__':
-    arg = parse_args()
-
+    print
+    arg, parser_ = parse_args()
+    if(len(sys.argv)!=9 or arg.FASTER_RCNN_ROOT == default_mark or arg.NAMEYOURDATASET == default_mark or arg.DEVKITPATH == default_mark or arg.CLASSESNAME == default_mark):
+        print len(sys.argv) -1
+        parser_.print_help()
+        sys.exit(1)
+	
     FASTER_RCNN_ROOT = arg.FASTER_RCNN_ROOT
     NAMEYOURDATASET = arg.NAMEYOURDATASET; TOKEN_1 = 'MMICC'
     CLASSESNAME, NUMCLSES = parse_classes(); TOKEN_2 = 'QYCC'
     DEVKITPATH = arg.DEVKITPATH; TOKEN_3 = 'DEVKITPATH'
+
 
     check_exists(FASTER_RCNN_ROOT, DEVKITPATH)
     x_str, eval_str, fac_str, sh_str= gen_py_files(NAMEYOURDATASET, TOKEN_1, CLASSESNAME,TOKEN_2, DEVKITPATH, TOKEN_3)
