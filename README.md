@@ -38,7 +38,7 @@ Then you can run the `generate.py` to generate interface, prototxt and script fi
  
  Please notice that, the tool will do everything automatically for you except for generating of `factory.py`-like file. 
  
- In case of changing this key file without any backup, the tool will not overwrite it but create a new `<idname>_factory.py` file for you. 
+ In case of changing this `factory.py` file without any backup, the tool will not overwrite it but create a new `<idname>_factory.py` file for you. 
 
  You have 2 options to complete the last step manually:
  
