@@ -23,16 +23,25 @@ Before using this generator, please make sure you have already set up a voc-like
         		└── *.jpg
 
 Then you can run the `generate.py` to generate interface, prototxt and script files
- 
- **arguments:**
- 
+
+  **arguments:**
 `--froot: absolute path to your faster-rcnn root.`
-
-`--idname: name your dataset, whatever you want. It will be used in the furture training.`
-
+`--idname: name your dataset, whatever you want. It will be used in the future training.`
 `--cls: class names in your dataset, use comma to split them (e.g: cat,dog,tiger) `
-
 `--dvkt: absolute path to your dataset devkit(mentioned above)`
+
+ **notice that**
+ Please notice that, the tool will do everything automatically for you except for generating of `factory.py`-like file. 
+ In case of changing this key file without any backup, the tool will not overwrite it but create a new `<idname>_factory.py` file for you. 
+
+ You have 2 options to complete the last step manually:
+1. Backup the original `factory.py` file and replace it with the generated one.
+ 2. Copy the code block given by the tool in the task summary.
+  
+ 
+ 
+
+
 
 ####Reference
 [deboc's tutorial](https://github.com/deboc/py-faster-rcnn/blob/master/help/Readme.md)
