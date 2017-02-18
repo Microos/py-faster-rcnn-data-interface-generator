@@ -1,6 +1,6 @@
 #Python Faster-RCNN Data Interface Generator
 
-The purpose of this tool is to generate dataset interface of Faster-RCNN(FRCN) that can help you to deploy training on your own dataset as fast as possible.
+The purpose of this tool is to generate dataset interface of [Faster-RCNN](https://github.com/rbgirshick/py-faster-rcnn)(FRCN) that can help you to deploy training on your own dataset as fast as possible.
 
 
 ####Usage
@@ -33,3 +33,6 @@ Then you can run the `generate.py` to generate interface, prototxt and script fi
 `--cls: class names in your dataset, use comma to split them (e.g: cat,dog,tiger) `
 
 `--dvkt: absolute path to your dataset devkit(mentioned above)`
+
+####Reference
+[deboc's tutorial](https://github.com/deboc/py-faster-rcnn/blob/master/help/Readme.md)

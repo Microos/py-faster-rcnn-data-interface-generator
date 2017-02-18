@@ -1,8 +1,8 @@
 *.pyc
 *.txt
 *~
-./prototxt_templates_new
-./.idea
+prototxt_templates_new/
+.idea/
 
 
 
