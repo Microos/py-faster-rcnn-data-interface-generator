@@ -25,6 +25,7 @@ Before using this generator, please make sure you have already set up a voc-like
 Then you can run the `generate.py` to generate interface, prototxt and script files
 
   **arguments:**
+  
 `--froot: absolute path to your faster-rcnn root.`
 
 `--idname: name your dataset, whatever you want. It will be used in the future training.`
