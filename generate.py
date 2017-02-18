@@ -36,7 +36,7 @@ def parse_args():
                         default=default_mark, type=str)
 
     parser.add_argument('--idname', dest='NAMEYOURDATASET',
-                        help='Specify a name to your dataset, also use it as an id',
+                        help='Assign a name to your dataset. It will be used in the future training as and ID',
                         default=default_mark, type=str)
 
     parser.add_argument('--cls', dest='CLASSESNAME',
