@@ -724,3 +724,12 @@ time ./tools/test_net.py --gpu ${GPU_ID} \
   ${EXTRA_ARGS}
 
 '''
+
+short_fac_template = '''
+#Set up MMICC
+from datasets.MMICC import MMICC
+MMICC_devkit_path = 'DEVKITPATH'
+for split in ['train', 'test']:
+    name = '{}_{}'.format('MMICC', split)
+    __sets[name] = (lambda split=split: MMICC(split, MMICC_devkit_path))
+'''

@@ -87,17 +87,20 @@ def check_exists(FASTER_RCNN_ROOT, DEVKITPATH):
 
 
 
-def gen_py_files(NAMEYOURDATASET, TOKEN_1, CLASSESNAME,TOKEN_2, DEVKITPATH, TOKEN_3):
+def gen_files(NAMEYOURDATASET, TOKEN_1, CLASSESNAME,TOKEN_2, DEVKITPATH, TOKEN_3):
     x_str = templates.x_template
     eval_str = templates.eval_template
     fac_str = templates.fac_template
+    sfac_str = templates.short_fac_template
     sh_str = templates.sh_template
 
     x_str = x_str.replace(TOKEN_1, NAMEYOURDATASET).replace(TOKEN_2, CLASSESNAME).replace(TOKEN_3, DEVKITPATH)
     eval_str = eval_str.replace(TOKEN_1, NAMEYOURDATASET).replace(TOKEN_2, CLASSESNAME).replace(TOKEN_3, DEVKITPATH)
     fac_str = fac_str.replace(TOKEN_1, NAMEYOURDATASET).replace(TOKEN_2, CLASSESNAME).replace(TOKEN_3, DEVKITPATH)
     sh_str = sh_str.replace(TOKEN_1, NAMEYOURDATASET).replace(TOKEN_2, CLASSESNAME).replace(TOKEN_3, DEVKITPATH)
-    return x_str, eval_str, fac_str, sh_str
+    sfac_str = sfac_str.replace(TOKEN_1, NAMEYOURDATASET).replace(TOKEN_2, CLASSESNAME).replace(TOKEN_3, DEVKITPATH)
+
+    return x_str, eval_str, fac_str, sh_str, sfac_str
 
 def gen_pt_files(NUMCLSES, NAMEYOURDATASET):
     new_ptxt_dir = os.path.join(os.path.dirname(__file__), 'prototxt_templates_new')
@@ -119,7 +122,7 @@ def gen_pt_files(NUMCLSES, NAMEYOURDATASET):
                 f.write(str(''.join(content)))
     return new_ptxt_dir
 
-def write_files(FASTER_RCNN_ROOT,NAMEYOURDATASET, new_ptxt_dir, x_str, eval_str, fac_str, sh_str):
+def write_files(FASTER_RCNN_ROOT,NAMEYOURDATASET, new_ptxt_dir, x_str, eval_str, fac_str, sh_str, sfac_str):
     actions = [1,1,1,1,1]
     # move ptxt_dir
     summary = "\n------------------------------------------\nDone! Summary:\n"
@@ -205,12 +208,14 @@ def write_files(FASTER_RCNN_ROOT,NAMEYOURDATASET, new_ptxt_dir, x_str, eval_str,
     if(actions[3] or actions[-1]):
         summary += '\nMake sure that the choices you made above can make the generated files consistent. After that: '
     if(actions[3] == 1):
-        summary += '\n@) Complete an extra step by yourself:\n'
-        summary += "\tBack up your original '{}' file. \n\tAnd rename '{}' to 'factory.py'\n".format(
+        summary += '\n @) Complete an extra step by yourself:\n'
+        summary += "\t[Option1] \n\tBack up your original '{}' file. \n\tAnd rename '{}' to 'factory.py'\n".format(
             os.path.join(FASTER_RCNN_ROOT, 'lib', 'datasets', 'factory.py'),
             os.path.join(FASTER_RCNN_ROOT, 'lib', 'datasets', fac_name))
+        summary += "\n\t[Option2] \n\tInsert the following code block to '{}':\n".format(os.path.join(FASTER_RCNN_ROOT, 'lib', 'datasets', 'factory.py'))
+        summary += "\n{}\n".format(sfac_str)
     if(actions[-1] == 1):
-        summary += "\n@) Train the net using the script '{}'. \n\tFor example:\n".format(sh_target_path)
+        summary += "\n @) Train the net using the script '{}'. \n\tFor example:\n".format(sh_target_path)
         summary += "\t $ cd {}\n".format(FASTER_RCNN_ROOT)
         summary += "\t $ {} 0 VGG16 {}\n".format(os.path.join('experiments', 'scripts', '{}_faster_rcnn_end2end.sh'.format(NAMEYOURDATASET)), NAMEYOURDATASET)
 
@@ -230,8 +235,8 @@ if __name__ == '__main__':
 
 
     check_exists(FASTER_RCNN_ROOT, DEVKITPATH)
-    x_str, eval_str, fac_str, sh_str= gen_py_files(NAMEYOURDATASET, TOKEN_1, CLASSESNAME,TOKEN_2, DEVKITPATH, TOKEN_3)
+    x_str, eval_str, fac_str, sh_str, sfac_str= gen_files(NAMEYOURDATASET, TOKEN_1, CLASSESNAME,TOKEN_2, DEVKITPATH, TOKEN_3)
     new_ptxt_dir = gen_pt_files(NUMCLSES,NAMEYOURDATASET)
 
-    write_files(FASTER_RCNN_ROOT,NAMEYOURDATASET, new_ptxt_dir, x_str, eval_str, fac_str,sh_str)
+    write_files(FASTER_RCNN_ROOT,NAMEYOURDATASET, new_ptxt_dir, x_str, eval_str, fac_str, sh_str, sfac_str)
 
