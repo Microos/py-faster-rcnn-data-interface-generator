@@ -22,6 +22,36 @@ PASCAL_VOC_devkit
 '''
 default_mark = 'O(..)O'
 
+
+import ast
+
+#from http://stackoverflow.com/questions/12700893/how-to-check-if-a-string-is-a-valid-python-identifier-including-keyword-check
+#used to make sure `idname` is a valid identifier
+def isidentifier(ident):
+    if not isinstance(ident, str):
+        raise TypeError('expected str, but got {!r}'.format(type(ident)))
+    try:
+        root = ast.parse(ident)
+    except SyntaxError:
+        return False
+
+    if not isinstance(root, ast.Module):
+        return False
+
+    if len(root.body) != 1:
+        return False
+
+    if not isinstance(root.body[0], ast.Expr):
+        return False
+
+    if not isinstance(root.body[0].value, ast.Name):
+        return False
+
+    if root.body[0].value.id != ident:
+        return False
+    return True
+
+
 def parse_args():
     """
     Parse input arguments
@@ -227,12 +257,15 @@ if __name__ == '__main__':
     if(len(sys.argv)!=9 or arg.FASTER_RCNN_ROOT == default_mark or arg.NAMEYOURDATASET == default_mark or arg.DEVKITPATH == default_mark or arg.CLASSESNAME == default_mark):
         parser_.print_help()
         sys.exit(1)
+
 	
     FASTER_RCNN_ROOT = arg.FASTER_RCNN_ROOT
     NAMEYOURDATASET = arg.NAMEYOURDATASET; TOKEN_1 = 'MMICC'
     CLASSESNAME, NUMCLSES = parse_classes(); TOKEN_2 = 'QYCC'
     DEVKITPATH = arg.DEVKITPATH; TOKEN_3 = 'DEVKITPATH'
-
+    if (not isidentifier(NAMEYOURDATASET)):
+        print "[!] --idname '{}' is not a valid identifier in python. ".format(NAMEYOURDATASET)
+        sys.exit(1)
 
     check_exists(FASTER_RCNN_ROOT, DEVKITPATH)
     x_str, eval_str, fac_str, sh_str, sfac_str= gen_files(NAMEYOURDATASET, TOKEN_1, CLASSESNAME,TOKEN_2, DEVKITPATH, TOKEN_3)
