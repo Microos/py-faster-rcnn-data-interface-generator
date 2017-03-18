@@ -20,7 +20,7 @@ Before using this generator, please make sure you have already set up a voc-like
     		│       ├── train.txt
     		│       └── test.txt
     		└── JPEGImages
-        		└── *.jpg
+        			└── *.jpg
 
 Then you can run the `generate.py` to generate interface, prototxt and script files
 
