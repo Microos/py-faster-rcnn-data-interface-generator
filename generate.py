@@ -147,7 +147,7 @@ def gen_pt_files(NUMCLSES, NAMEYOURDATASET):
                 content = f.readlines()
             if 'train_net' in content[0]: #this is a solver
                 content[0] = content[0].replace('pascal_voc',NAMEYOURDATASET)
-            content = [l.replace('MMICC',str(1+NUMCLSES)).replace('MM4CC',str(4*(1+NUMCLSES))) for l in content]
+            content = [l.replace('MMICC',str(1+NUMCLSES)).replace('MM4CC',str(4*(1+NUMCLSES))).replace('IDNAME',NAMEYOURDATASET) for l in content]
             with open(os.path.join(dir_name,fl),'w') as f:
                 f.write(str(''.join(content)))
     return new_ptxt_dir
