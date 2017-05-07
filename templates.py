@@ -674,7 +674,7 @@ case $DATASET in
     ;;
   MMICC)
     TRAIN_IMDB="MMICC_train"
-    TEST_IMDB="MMICC_val"
+    TEST_IMDB="MMICC_test"
     PT_DIR="MMICC"
     ITERS=70000
     ;;
@@ -729,7 +729,7 @@ short_fac_template = '''
 #Set up MMICC
 from datasets.MMICC import MMICC
 MMICC_devkit_path = 'DEVKITPATH'
-for split in ['train', 'val']:
+for split in ['train', 'test']:
     name = '{}_{}'.format('MMICC', split)
     __sets[name] = (lambda split=split: MMICC(split, MMICC_devkit_path))
 '''
