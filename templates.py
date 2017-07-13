@@ -709,7 +709,7 @@ time ./tools/train_net.py --gpu ${GPU_ID} \
   --weights data/imagenet_models/${NET}.v2.caffemodel \
   --imdb ${TRAIN_IMDB} \
   --iters ${ITERS} \
-  --cfg experiments/cfgs/faster_rcnn_end2end.yml \
+  --cfg experiments/cfgs/MMICC_end2end.yml \
   ${EXTRA_ARGS}
 
 set +x
@@ -732,4 +732,19 @@ MMICC_devkit_path = 'DEVKITPATH'
 for split in ['train', 'test']:
     name = '{}_{}'.format('MMICC', split)
     __sets[name] = (lambda split=split: MMICC(split, MMICC_devkit_path))
+'''
+
+
+cfg_template = '''
+EXP_DIR: MMICC
+TRAIN:
+  HAS_RPN: True
+  IMS_PER_BATCH: 1
+  BBOX_NORMALIZE_TARGETS_PRECOMPUTED: True
+  RPN_POSITIVE_OVERLAP: 0.7
+  RPN_BATCHSIZE: 256
+  PROPOSAL_METHOD: gt
+  BG_THRESH_LO: 0.0
+TEST:
+  HAS_RPN: True
 '''
