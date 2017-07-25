@@ -10,7 +10,7 @@ And a bash script similar to `py-faster-rcnn/experiments/scripts/faster_rcnn_end
 
 Before using this generator, please make sure you have already set up a voc-like tree structure of your dataset(in your `py-faster-rcnn/data/` folder):
 
-	PASCAL_VOC_devkit
+	YOUR_DATASET_devkit
 		└── data
     		├── Annotations
     		│   └── *.xml
