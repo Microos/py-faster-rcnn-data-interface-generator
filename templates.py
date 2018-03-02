@@ -719,7 +719,7 @@ echo "NET ${NET}"
 echo "TRAIN_IMDB ${TRAIN_IMDB}"
 
 
-time ./tools/train_net.py --gpu 0,1 \
+time ./tools/train_net_multi_gpu.py --gpu 0,1 \
   --solver models/${PT_DIR}/${NET}/faster_rcnn_end2end/solver.prototxt \
   --weights data/imagenet_models/${NET}.v2.caffemodel \
   --imdb ${TRAIN_IMDB} \
@@ -738,7 +738,10 @@ time ./tools/test_net.py --gpu ${GPU_ID} \
   --cfg experiments/cfgs/faster_rcnn_end2end.yml \
   ${EXTRA_ARGS}
 
-''' # py-R-FCN-multiGPU/experiments/scripts/faster_rcnn_end2end_multi_gpu.sh -> changed gpuid to 0,1 at train
+'''
+# py-R-FCN-multiGPU/experiments/scripts/faster_rcnn_end2end_multi_gpu.sh
+#   -> changed gpuid to 0,1 at train
+#   -> invoke train_net_multi_gpu.py
 
 short_fac_template = '''
 #Set up MMICC

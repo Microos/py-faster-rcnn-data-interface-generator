@@ -217,7 +217,7 @@ def write_files(FASTER_RCNN_ROOT, NAMEYOURDATASET, new_ptxt_dir, x_str, eval_str
         print()
 
     sh_target_path = os.path.join(FASTER_RCNN_ROOT, 'experiments', 'scripts',
-                                  '{}_faster_rcnn_end2end.sh'.format(NAMEYOURDATASET))
+                                  '{}_frcnn_e2e_multigpu.sh'.format(NAMEYOURDATASET))
     if os.path.exists(sh_target_path):
         ans = raw_input(
             "[!] Script file '{}' exists, do you want to overwrite it?(y/N) ".format(sh_target_path)).strip()
