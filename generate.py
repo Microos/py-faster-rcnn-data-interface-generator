@@ -56,7 +56,7 @@ def parse_args():
     """
     Parse input arguments
     """
-    parser = argparse.ArgumentParser(description='A tool to generate Faster R-CNN dataset interfaces.\n'
+    parser = argparse.ArgumentParser(description='[Multi-gpu version] A tool to generate Faster R-CNN dataset interfaces.\n'
                                                  'Please make sure your that dataset devkit has a same tree structure of pascal_voc and also the xml annotation format.\n'
                                                  '\nA VOC-like devkit tree structure:{}\n'.format(std_dataset_tree_str),
                                      formatter_class=RawTextHelpFormatter)
@@ -280,12 +280,12 @@ if __name__ == '__main__':
         parser_.print_help()
         sys.exit(1)
 
-    FASTER_RCNN_ROOT = arg.FASTER_RCNN_ROOT
+    FASTER_RCNN_ROOT = os.path.abspath(arg.FASTER_RCNN_ROOT)
     NAMEYOURDATASET = arg.NAMEYOURDATASET
     TOKEN_1 = 'MMICC'
     CLASSESNAME, NUMCLSES = parse_classes()
     TOKEN_2 = 'QYCC'
-    DEVKITPATH = arg.DEVKITPATH
+    DEVKITPATH = os.path.abspath(arg.DEVKITPATH)
     TOKEN_3 = 'DEVKITPATH'
     if not isidentifier(NAMEYOURDATASET):
         print("[!] --idname '{}' is not a valid identifier in python. ".format(NAMEYOURDATASET))
