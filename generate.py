@@ -23,10 +23,11 @@ PASCAL_VOC_devkit
 default_mark = 'O(..)O'
 
 
-import ast
+
 
 #from http://stackoverflow.com/questions/12700893/how-to-check-if-a-string-is-a-valid-python-identifier-including-keyword-check
 #used to make sure `idname` is a valid identifier
+import ast
 def isidentifier(ident):
     if not isinstance(ident, str):
         raise TypeError('expected str, but got {!r}'.format(type(ident)))
@@ -93,26 +94,26 @@ def parse_classes():
     #check to prevent: 'a,b,c,'
     for cls in clses:
         if not len(cls) > 0:
-            print "[!] Your input classes doesn't match the format:",arg.CLASSESNAME
-            print '[!] Example: a,b,c,d,e'
+            print("[!] Your input classes doesn't match the format. Input:",arg.CLASSESNAME)
+            print('[!] Example: a,b,c,d,e')
             sys.exit(1)
     clses = [c.strip() for c in clses]
     return  "'"  +   "','".join(clses) + "'", len(clses) #gives you 'a','b','c','d','e' AND number of classes
 
 def check_exists(FASTER_RCNN_ROOT, DEVKITPATH):
     if not  (os.path.isdir(FASTER_RCNN_ROOT) and os.path.isabs(FASTER_RCNN_ROOT)):
-        print "[!] Your Faster_RCNN_ROOT: '{}' not found. No such a directory. \n\tPlease make sure it is a absolute path.".format(FASTER_RCNN_ROOT)
+        print("[!] Your Faster_RCNN_ROOT: '{}' not found. No such a directory. \n\tPlease make sure it is a absolute path.".format(FASTER_RCNN_ROOT))
         sys.exit(1)
 
 
     if not (os.path.isdir(DEVKITPATH) and os.path.isabs(DEVKITPATH)):
-        print "[!] Your dataset Devkit: '{}' not found. No such a directory. \n\tPlease make sure it is a absolute path.".format(DEVKITPATH)
+        print("[!] Your dataset Devkit: '{}' not found. No such a directory. \n\tPlease make sure it is a absolute path.".format(DEVKITPATH))
         sys.exit(1)
 
 
     for tf in [os.path.join(FASTER_RCNN_ROOT,'experiments','scripts'),os.path.join(FASTER_RCNN_ROOT,'lib','datasets'),os.path.join(FASTER_RCNN_ROOT, 'models')]:
         if os.path.isdir(tf) == False:
-            print "[!] Directory :'{}' not found.".format(tf)
+            print("[!] Directory :'{}' not found.".format(tf))
             sys.exit(1)
 
 
@@ -144,7 +145,7 @@ def gen_pt_files(NUMCLSES, NAMEYOURDATASET):
         content = []
         for fl in file_list:
             if(0):
-                print "Dealing:",os.path.join(dir_name,fl)
+                print("Dealing:",os.path.join(dir_name,fl))
             with open(os.path.join(dir_name,fl),'r') as f:
                 content = f.readlines()
             if 'train_net' in content[0]: #this is a solver
@@ -163,24 +164,24 @@ def write_files(FASTER_RCNN_ROOT,NAMEYOURDATASET, new_ptxt_dir, x_str, eval_str,
     if os.path.isdir(target_ptxt_dir):
         ans = raw_input("[!] Folder '{}' exists, do you want to overwrite it?(y/N) ".format(target_ptxt_dir)).strip()
         if(ans  == 'y' or ans == 'Y'):
-            print "[+] Overwrite folder: '{}'".format(target_ptxt_dir)
+            print("[+] Overwrite folder: '{}'".format(target_ptxt_dir))
             summary += "\t[+] Overwrite folder: '{}'".format(target_ptxt_dir)
             summary += '\n'
 
             os.system("rm -rf {}".format(target_ptxt_dir))
             os.system("mv {} {}".format(new_ptxt_dir, target_ptxt_dir))
         else:
-            print "\t[x] Skip of creating prototxt folder'{}'".format(target_ptxt_dir)
-            summary += "\t[x] Skip of creating prototxt folder'{}'".format(target_ptxt_dir)
+            print("\t[x] Skip of creating prototxt folder'{}'".format(target_ptxt_dir))
+            summary += ("\t[x] Skip of creating prototxt folder'{}'".format(target_ptxt_dir))
             summary += '\n'
             actions[0] = 0
 
     else:
-        print "[+] Create a folder to '{}'".format(target_ptxt_dir)
+        print("[+] Create a folder to '{}'".format(target_ptxt_dir))
         os.system("mv {} {}".format(new_ptxt_dir, target_ptxt_dir))
         summary +=  "\t[+] Create a folder to '{}'".format(target_ptxt_dir)
         summary += '\n'
-    print
+    print()
 
     x_name = NAMEYOURDATASET + '.py'
     eval_name = NAMEYOURDATASET + '_eval.py'
@@ -191,25 +192,25 @@ def write_files(FASTER_RCNN_ROOT,NAMEYOURDATASET, new_ptxt_dir, x_str, eval_str,
             ans = raw_input(
                 "[!] Python file '{}' exists, do you want to overwrite it?(y/N) ".format(target_path)).strip()
             if (ans == 'y' or ans == 'Y'):
-                print "[+] Overwrite file: '{}'".format(target_path)
+                print ("[+] Overwrite file: '{}'".format(target_path))
                 os.system("rm {}".format(target_path))
                 summary += "\t[+] Overwrite file: '{}'".format(target_path)
                 summary += '\n'
                 with open(target_path, 'w') as f:
                     f.write(content)
             else:
-                print "\t[x] Skip of creating'{}'".format(target_path)
+                print("\t[x] Skip of creating'{}'".format(target_path))
                 summary += "\t[x] Skip of creating'{}'".format(target_path)
                 summary += '\n'
                 actions[1+i] = 0
 
         else:
-            print "[+] Create a file to '{}'".format(target_path)
+            print("[+] Create a file to '{}'".format(target_path))
             summary += "\t[+] Create a file to '{}'".format(target_path)
             summary += '\n'
             with open(target_path, 'w') as f:
                 f.write(content)
-        print
+        print()
 
 
     sh_target_path = os.path.join(FASTER_RCNN_ROOT, 'experiments', 'scripts', '{}_faster_rcnn_end2end.sh'.format(NAMEYOURDATASET))
@@ -217,7 +218,7 @@ def write_files(FASTER_RCNN_ROOT,NAMEYOURDATASET, new_ptxt_dir, x_str, eval_str,
         ans = raw_input(
             "[!] Script file '{}' exists, do you want to overwrite it?(y/N) ".format(sh_target_path)).strip()
         if (ans == 'y' or ans == 'Y'):
-            print "[+] Overwrite file: '{}'".format(sh_target_path)
+            print("[+] Overwrite file: '{}'".format(sh_target_path))
             os.system("rm {}".format(sh_target_path))
             summary += "\t[+] Overwrite file: '{}'".format(sh_target_path)
             summary += '\n'
@@ -225,13 +226,13 @@ def write_files(FASTER_RCNN_ROOT,NAMEYOURDATASET, new_ptxt_dir, x_str, eval_str,
                 f.write(sh_str)
             os.system('chmod +x {}'.format(sh_target_path))
         else:
-            print "\t[x] Skip of creating'{}'".format(sh_target_path)
+            print("\t[x] Skip of creating'{}'".format(sh_target_path))
             summary += "\t[x] Skip of creating'{}'".format(sh_target_path)
             summary += '\n'
             actions[-1] = 0
 
     else:
-        print "[+] Create a file to '{}'".format(sh_target_path)
+        print("[+] Create a file to '{}'".format(sh_target_path))
         summary += "\t[+] Create a file to '{}'".format(sh_target_path)
         summary += '\n'
         with open(sh_target_path, 'w') as f:
@@ -259,9 +260,9 @@ def write_files(FASTER_RCNN_ROOT,NAMEYOURDATASET, new_ptxt_dir, x_str, eval_str,
 
     summary += '------------------------------------------\n'
 
-    print summary
+    print(summary)
 if __name__ == '__main__':
-    print
+    print()
     arg, parser_ = parse_args()
     if(len(sys.argv)!=9 or arg.FASTER_RCNN_ROOT == default_mark or arg.NAMEYOURDATASET == default_mark or arg.DEVKITPATH == default_mark or arg.CLASSESNAME == default_mark):
         parser_.print_help()
@@ -273,7 +274,7 @@ if __name__ == '__main__':
     CLASSESNAME, NUMCLSES = parse_classes(); TOKEN_2 = 'QYCC'
     DEVKITPATH = arg.DEVKITPATH; TOKEN_3 = 'DEVKITPATH'
     if (not isidentifier(NAMEYOURDATASET)):
-        print "[!] --idname '{}' is not a valid identifier in python. ".format(NAMEYOURDATASET)
+        print("[!] --idname '{}' is not a valid identifier in python. ".format(NAMEYOURDATASET))
         sys.exit(1)
 
     check_exists(FASTER_RCNN_ROOT, DEVKITPATH)
