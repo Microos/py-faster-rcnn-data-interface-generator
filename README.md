@@ -1,8 +1,6 @@
 # Python Faster-RCNN Data Interface Generator
 
-The purpose of this tool is to generate dataset interface of [Faster-RCNN](https://github.com/rbgirshick/py-faster-rcnn)(FRCN) that can help you to deploy training on your own dataset as fast as possible.
-
-
+The purpose of this tool is to generate dataset interface for [py-R-FCN-multiGPU](https://github.com/bharatsingh430/py-R-FCN-multiGPU)
 #### Usage
 This tool will generate dataset interface like `pascal_voc.py`, `voc_eval.py` and `factory.py`. 
 Also a set of net prototxt files like `py-faster-rcnn/models/pascal_voc`. 
