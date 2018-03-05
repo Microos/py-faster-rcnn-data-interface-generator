@@ -7,8 +7,8 @@ import templates
 
 DEBUG = False
 std_dataset_tree_str = '''
-PASCAL_VOC_devkit
-└── data
+YOUR_DATASET_devkit
+    ├── data
     ├── Annotations
     │   └── *.xml
     │

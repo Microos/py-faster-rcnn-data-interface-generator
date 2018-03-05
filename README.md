@@ -9,30 +9,33 @@ Also a set of net prototxt files like `py-faster-rcnn/models/pascal_voc`.
 And a bash script similar to `py-faster-rcnn/experiments/scripts/faster_rcnn_end2end.sh`
 
 Before using this generator, please make sure you have already set up a voc-like tree structure of your dataset(in your `py-faster-rcnn/data/` folder):
+```
+YOUR_DATASET_devkit
+    ├── data
+    ├── Annotations
+    │   └── *.xml
+    │
+    ├── ImageSets
+    │   └── Main
+    │       ├── train.txt
+    │       └── test.txt
+    └── JPEGImages
+        └── *.jpg
 
-	YOUR_DATASET_devkit
-		└── data
-    		├── Annotations
-    		│   └── *.xml
-			│
-   			├── ImageSets
-    		│   └── Main
-    		│       ├── train.txt
-    		│       └── test.txt
-    		└── JPEGImages
-        			└── *.jpg
+```
+	
 
 Then you can run the `generate.py` to generate interface, prototxt and script files
 
-  **arguments:**
+**Arguments:**
   
-`--froot: absolute path to your faster-rcnn root.`
+```
+--froot: absolute path to your faster-rcnn root.
+--idname: name your dataset, whatever you want.s It will be used in the future training.
+--cls: class names in your dataset, use commas to split them (e.g: cat,dog,tiger)
+--dvkt: absolute path to your dataset devkit
+```
 
-`--idname: name your dataset, whatever you want.s It will be used in the future training.`
-
-`--cls: class names in your dataset, use commas to split them (e.g: cat,dog,tiger) `
-
-`--dvkt: absolute path to your dataset devkit
 
 ## Final Step
  
