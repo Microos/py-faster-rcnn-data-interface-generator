@@ -63,7 +63,7 @@ def parse_args():
                                      formatter_class=RawTextHelpFormatter)
 
     parser.add_argument('--froot', dest='FASTER_RCNN_ROOT',
-                        help='The full path to your Faster RCNN ROOT folder',
+                        help='The path to your Faster RCNN ROOT folder',
                         default=default_mark, type=str)
 
     parser.add_argument('--idname', dest='NAMEYOURDATASET',
@@ -71,12 +71,12 @@ def parse_args():
                         default=default_mark, type=str)
 
     parser.add_argument('--cls', dest='CLASSESNAME',
-                        help='A List of classes, separate by a comma(e.g. cat,dog,tiger)',
+                        help='A List of classes, separated by commas(e.g. cat,dog,tiger)',
                         default=default_mark, type=str)
 
 
     parser.add_argument('--dvkt', dest='DEVKITPATH',
-                        help='The full path to your dataset devkit folder',
+                        help='The path to your dataset devkit folder',
                         default=default_mark, type=str)
 
     
