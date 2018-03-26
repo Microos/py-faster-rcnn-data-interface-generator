@@ -729,7 +729,7 @@ short_fac_template = '''
 #Set up MMICC
 from datasets.MMICC import MMICC
 MMICC_devkit_path = 'DEVKITPATH'
-for split in ['train', 'test']:
+for split in ['train', 'val', 'test']:
     name = '{}_{}'.format('MMICC', split)
     __sets[name] = (lambda split=split: MMICC(split, MMICC_devkit_path))
 '''
